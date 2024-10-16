@@ -66,6 +66,15 @@ button{
     background-color: #FAFAFA;
 }
 
+button:hover{
+    background: wheat;
+}
+
+button:active{
+    background-color: green;
+    transition: ease-in 0.2s;
+}
+
 .operator, .equal{
     background-color: #FFCC00;
 }
