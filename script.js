@@ -59,3 +59,22 @@ return resultNumber
 }
 
 console.log(subtraction(51,"",1))
+
+
+function multiplication(firstNumber, operator, secondNumber){
+    let num1 = Number(firstNumber);
+    let num2 = Number(secondNumber);
+
+    if(Number.isNaN(num1) || Number.isNaN(num2)){
+        console.log(`Multiplication error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+        return null
+    }
+
+let resultNumber = num1 * num2
+
+return resultNumber
+
+}
+
+console.log(multiplication(1,"",9))
+
