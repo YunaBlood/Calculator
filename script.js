@@ -75,8 +75,28 @@ const calculator = {
     }
 }
 
-console.log(calculator.addition("-0","",3))
-console.log(calculator.subtraction("-25","",3))
-console.log(calculator.multiplication("4","",3))
-console.log(calculator.division("5","",2))
-console.log(calculator.percentage("10","",2))
+// 2.Get user input
+
+const userInterface = {
+    operator: function (firstNumber,operator,secondNumber){
+        switch(operator) {
+            case "+":
+                let resultAddition = calculator.addition(firstNumber, "+", secondNumber)
+                return resultAddition;
+            case "-":
+                let resultSubtraction = calculator.subtraction(firstNumber, "-", secondNumber)
+                return resultSubtraction;
+            case "*":
+                let resultMultiplication = calculator.multiplication(firstNumber, "*", secondNumber)
+                return resultMultiplication
+            case "/":
+                let resultDivision = calculator.division(firstNumber, "/", secondNumber)
+                return resultDivision
+            case "%":
+                let resultPercentage = calculator.percentage(firstNumber, "%", secondNumber)
+                return resultPercentage
+            default:
+                return null
+        }
+    }
+}
