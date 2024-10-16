@@ -19,7 +19,7 @@
 
 //Addition calculation
 
-//Define the function addition with three paremeters two number and a operator
+//Define the function addition with three parameters two number and a operator
 function addition(firstNumber, operator, secondNumber) {
 
 //Convert input to numbers first
@@ -29,7 +29,7 @@ let num2 = Number(secondNumber);
 //If number is not a number 
 if(Number.isNaN(num1) || Number.isNaN(num2)){
     //Display error
-    alert(`Invalid data type: \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+    console.log(`Addition error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
     //Return null
     return null
 }
@@ -39,4 +39,23 @@ let resultNumber = num1 + num2;
 return resultNumber;
 
 }
-console.log(addition("1", "", 1))
+
+console.log(addition("0", "", 1))
+
+
+function subtraction(firstNumber, operator, secondNumber){
+    let num1 = Number(firstNumber);
+    let num2 = Number(secondNumber);
+
+    if(Number.isNaN(num1) || Number.isNaN(num2)){
+        console.log(`Subtraction error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+        return null
+    }
+
+let resultNumber = num1 - num2
+
+return resultNumber
+
+}
+
+console.log(subtraction(51,"",1))
