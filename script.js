@@ -86,7 +86,7 @@ function division(firstNumber, operator, secondNumber){
     if(Number.isNaN(num1) || Number.isNaN(num2)){
         console.log(`Division error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
         return null
-    }else if(num1 == 0 || num2 == 0){
+    }else if(num2 == 0){
         console.log(`Impossible to divide by 0`)
         return null
     }
@@ -98,3 +98,24 @@ return resultNumber
 }
 
 console.log((division("2","",10)))
+
+
+function percentage(firstNumber, operator, secondNumber){
+    let num1 = Number(firstNumber);
+    let num2 = Number(secondNumber);
+
+    if(Number.isNaN(num1) || Number.isNaN(num2)){
+        console.log(`Percentage error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+        return null
+    }else if(num2 == 0){
+        console.log(`Cannot calculate percentage of zero`)
+        return null
+    }
+
+let resultNumber = num1 / num2 * 100
+
+return resultNumber
+
+}
+
+console.log((percentage("5","",4)))
