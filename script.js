@@ -19,103 +19,64 @@
 
 //Addition calculation
 
-//Define the function addition with three parameters two number and a operator
-function addition(firstNumber, operator, secondNumber) {
-
-//Convert input to numbers first
-let num1 = Number(firstNumber);
-let num2 = Number(secondNumber);
-
-//If number is not a number 
-if(Number.isNaN(num1) || Number.isNaN(num2)){
-    //Display error
-    console.log(`Addition error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-    //Return null
-    return null
-}
-//Perform the addition
-let resultNumber = num1 + num2;
-//Return the result 
-return resultNumber;
-
-}
-
-console.log(addition("0", "", 1))
-
-
-function subtraction(firstNumber, operator, secondNumber){
-    let num1 = Number(firstNumber);
-    let num2 = Number(secondNumber);
-
-    if(Number.isNaN(num1) || Number.isNaN(num2)){
+//Make calculator object that contain all arithmetic operation
+const calculator = {
+    //Define the function addition with three parameters two number and a operator
+    addition: function(firstNumber,operator, secondNumber){
+        let num1 = Number(firstNumber);
+        let num2 = Number(secondNumber);
+        if(Number.isNaN(num1) || Number.isNaN(num2)){
+        console.log(`Addition error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+        return null
+        }
+        return num1 + num2
+    },
+    subtraction: function(firstNumber,operator,secondNumber){
+        let num1 = Number(firstNumber);
+        let num2 = Number(secondNumber);
+        if(Number.isNaN(num1) || Number.isNaN(num2)){
         console.log(`Subtraction error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
         return null
-    }
-
-let resultNumber = num1 - num2
-
-return resultNumber
-
-}
-
-console.log(subtraction(51,"",1))
-
-
-function multiplication(firstNumber, operator, secondNumber){
-    let num1 = Number(firstNumber);
-    let num2 = Number(secondNumber);
-
-    if(Number.isNaN(num1) || Number.isNaN(num2)){
+        }
+        return num1 - num2
+    },
+    multiplication: function(firstNumber, operator, secondNumber){
+        let num1 = Number(firstNumber);
+        let num2 = Number(secondNumber);
+        if(Number.isNaN(num1) || Number.isNaN(num2)){
         console.log(`Multiplication error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
         return null
+        }
+        return num1 * num2
+    },
+    division: function(firstNumber,operator, secondNumber) {
+        let num1 = Number(firstNumber);
+        let num2 = Number(secondNumber);
+        if(Number.isNaN(num1) || Number.isNaN(num2)){
+            console.log(`Division error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+            return null
+        }else if(num2 == 0){
+            console.log(`Impossible to divide by 0`)
+            return null
+        }
+        return num1 / num2
+    },
+    percentage: function(firstNumber, operator, secondNumber){
+        let num1 = Number(firstNumber);
+        let num2 = Number(secondNumber);
+        if(Number.isNaN(num1) || Number.isNaN(num2)){
+            console.log(`Division error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
+            return null
+        }else if(num2 == 0){
+            console.log(`Cannot calculate percentage of zero`)
+            return null
+        }
+        return num1 / num2 * 100
     }
-
-let resultNumber = num1 * num2
-
-return resultNumber
-
 }
 
-console.log(multiplication(1,"",9))
-
-
-function division(firstNumber, operator, secondNumber){
-    let num1 = Number(firstNumber);
-    let num2 = Number(secondNumber);
-
-    if(Number.isNaN(num1) || Number.isNaN(num2)){
-        console.log(`Division error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-        return null
-    }else if(num2 == 0){
-        console.log(`Impossible to divide by 0`)
-        return null
-    }
-
-let resultNumber = num1 / num2
-
-return resultNumber
-
-}
-
-console.log((division("2","",10)))
-
-
-function percentage(firstNumber, operator, secondNumber){
-    let num1 = Number(firstNumber);
-    let num2 = Number(secondNumber);
-
-    if(Number.isNaN(num1) || Number.isNaN(num2)){
-        console.log(`Percentage error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-        return null
-    }else if(num2 == 0){
-        console.log(`Cannot calculate percentage of zero`)
-        return null
-    }
-
-let resultNumber = num1 / num2 * 100
-
-return resultNumber
-
-}
-
-console.log((percentage("5","",4)))
+console.log(calculator.addition("-0","",3))
+console.log(calculator.subtraction("-25","",3))
+console.log(calculator.multiplication("4","",3))
+console.log(calculator.division("5","",2))
+console.log(calculator.percentage("10","",2))
