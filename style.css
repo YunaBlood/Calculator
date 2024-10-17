@@ -1,9 +1,18 @@
+:root{
+    --darkreader-neutral-background: #181a1b;
+    --darkreader-neutral-text: #e8e6e3;
+    --darkreader-selection-background: #004daa;
+    --darkreader-selection-text: #e8e6e3;
+}
+
 html{
     box-sizing: border-box;
     display: flex;
     height: 100vh;
     justify-content: center;
-    background-color: beige;
+    /* background-color: beige; */
+    background-color: #181a1b;
+    color: #e8e6e3;
 }
 
 body{
@@ -11,27 +20,28 @@ body{
     align-items: center;
 }
 
+
 .container{
     text-align: center;
 }
 
 .container-calculator{
-    background-color: #f0f0f0;
+    background-color: rgb(26, 28, 29);
+    box-shadow: rgb(0, 0, 0) 10px 5px 5px;
     width: 400px;
     padding: 8px 16px;
     display: flex;
     flex-direction: column;
-    border: 1px solid #999999;
+    border: 1px solid rgb(83 83 83);
     border-radius: 10px;
     text-align: center;
     margin: auto;
-    box-shadow: 10px 5px 5px black;
     flex: 1;
 }
 
 .display-calculator{
     margin: 15px 0px;
-    background-color: rgba(255, 255, 255, .75);
+    background-color: rgba(19, 21, 22, 0.75);
     display: flex;
     align-items: flex-end;
     flex-direction: column;
@@ -40,13 +50,8 @@ body{
     word-break: break-all;
 }
 
-.display-calculator .previous-operand{
-    color: rgba(0, 0, 0, .75);
-    font-size: 1.5rem;
-}
-
 .display-calculator .current-operand{
-    color: black;
+    color: white;
     font-size: 2.5rem;
 }
 
@@ -68,27 +73,32 @@ body{
     
 button{
     display: flex;
-    color: #333333;
     font-weight: bold;
     justify-content: center;
     height: 100px;
     width: 90px;
     font-size: 25px;
     align-items: center;
-    border: 1px solid #CCCCCC;
     border-radius: 8px;
-    background-color: #FAFAFA;
+    border: 1px solid;
+    color: rgb(193, 188, 180);
+    border-color: rgb(118, 110, 97);
+    background-color: rgb(21, 23, 24);
 }
 
 button:hover{
-    background: wheat;
+    background: gray;
 }
 
 button:active{
     background-color: green;
-    transition: ease-in 0.2s;
+}
+
+button.clear:active, button.backspace:active{
+    background-color: red;
+    transition: ease-in 0.1s;
 }
 
 .operator, .equal{
-    background-color: #FFCC00;
+    background-color: rgb(122, 98, 0);
 }
