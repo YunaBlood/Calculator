@@ -62,7 +62,6 @@ function displayNumber(num){
         currentDisplay.textContent = secondNumber
     }
     activeDecimalButton();
-    console.log(num)
 }
 
 
@@ -79,7 +78,6 @@ function displayOperation(op){
     currentDisplay.textContent += `${op}`
     step = 2
     operation = op
-    console.log(op)
 }
 
 
@@ -113,7 +111,6 @@ function deleteLastChar() {
 
 
 function percent(percent){
-    console.log(percent)
     if(percent === "%"){
         result = firstNumber/100
         currentDisplay.textContent = result.toFixed(2);
