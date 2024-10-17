@@ -3,6 +3,7 @@ html{
     display: flex;
     height: 100vh;
     justify-content: center;
+    background-color: beige;
 }
 
 body{
