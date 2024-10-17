@@ -14,16 +14,6 @@
 13.End program
 */
 
-
-
-
-
-//1.Calculator function
-
-//Addition calculation
-
-//Make calculator object that contain all arithmetic operation
-
 let displayValue = "0";
 let firstNumber = null;
 let secondNumber = null;
