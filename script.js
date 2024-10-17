@@ -34,6 +34,19 @@ let numArray = []
 let secondNumberArray = []
 
 const currentDisplay = document.querySelector(".current-operand")
+const numberButton = document.querySelector(".number")
+const decimal = document.querySelector(".decimal")
+
+function disableDecimalButton(){
+    decimal.disabled = true;
+}
+
+disableDecimalButton()
+
+
+function activeDecimalButton(){
+    decimal.disabled = false;
+}
 
 
 function displayNumber(num){
@@ -48,6 +61,7 @@ function displayNumber(num){
         secondNumber = Number(secondNumberArray.join(''))
         currentDisplay.textContent = secondNumber
     }
+    activeDecimalButton();
     console.log(num)
 }
 
@@ -78,7 +92,7 @@ function clearDisplay(){
     result = 0
     numArray = []
     secondNumberArray =[]
-    console.log("clear display")
+    disableDecimalButton()
 }
 
 
@@ -111,8 +125,12 @@ function percent(percent){
 
 
 const calculate = () => {
-    if (secondNumber === null || secondNumber === undefined) {
+    if (secondNumber === null || isNaN(secondNumber)) {
         currentDisplay.textContent = "Enter a second number";
+        return;
+    }
+    if (firstNumber === null || isNaN(firstNumber)) {
+        currentDisplay.textContent = "Enter a Number";
         return;
     }
 
@@ -123,10 +141,10 @@ const calculate = () => {
         case '-':
             result = firstNumber - secondNumber;
             break;
-        case 'x':
+        case '*':
             result = firstNumber * secondNumber;
             break;
-        case '÷':
+        case '/':
             if (secondNumber === 0) {
                 clearDisplay();
                 currentDisplay.textContent = "Impossible to divide by 0";
@@ -148,3 +166,53 @@ const calculate = () => {
     operation = null;
     step = 0;
 };
+
+
+
+function handleDecimal() {
+    if (step === 1 && !numArray.includes('.')) { // Check for first number
+        numArray.push('.');
+        currentDisplay.textContent = numArray.join(''); // Update display with decimal
+        disableDecimalButton(); // Disable the decimal button
+    } else if (step === 2 && !secondNumberArray.includes('.')) { // Check for second number
+        secondNumberArray.push('.');
+        currentDisplay.textContent = currentDisplay.textContent + '.'; // Append decimal
+        disableDecimalButton(); // Disable the decimal button
+    }
+}
+
+function keyboardSupport(key){
+    document.addEventListener('keydown', (event) => {
+        const key = event.key;
+
+        //Handle number keys
+        if(key >= 0 && key <= 9){
+            displayNumber(key);
+        }
+        //Handle operator keys
+        if(key === "+" || key === "-" || key === "*" || key === "/"){
+            displayOperation(key);
+        }
+        //Handle enter key
+        if(key === "Enter"){
+            calculate();
+        }
+        //Handle backspace key
+        if(key === "Backspace"){
+            deleteLastChar();
+        }
+        //Handle clear key
+        if(key.toLowerCase() === "c"){
+            clearDisplay();
+        }
+        //Handle percent key
+        if(key === "%"){
+            percent();
+        }
+        if(key === "."){
+            handleDecimal();
+        }
+    });
+}
+
+keyboardSupport();
