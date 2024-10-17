@@ -11,14 +11,14 @@
 <div class="container">
     <div class="container-calculator">
       <div class="display-calculator">
-        <div class="current-operand"></div>
+        <div class="current-operand">0</div>
       </div>
       <div class="container-AllButton">
-        <button class="operator" onclick="displayOperation('÷')">÷</button>
+        <button class="operator" onclick="displayOperation('/')">÷</button>
         <button class="operator"onclick="percent('%')">%</button>
         <button class="backspace" onclick="deleteLastChar()">⌫</button>
         <button class="clear" onclick="clearDisplay()">C</button>
-        <button class="operator" onclick="displayOperation('x')">x</button>
+        <button class="operator" onclick="displayOperation('*')">x</button>
         <button class="number" onclick="displayNumber(9)">9</button>
         <button class="number" onclick="displayNumber(8)">8</button>
         <button class="number" onclick="displayNumber(7)">7</button>
@@ -32,7 +32,7 @@
         <button class="number" onclick="displayNumber(1)">1</button>
         <div class="last-button">
           <button class="number" onclick="displayNumber(0)">0</button>
-          <button class="number" onclick="displayNumber('.')">.</button>
+          <button class="decimal" onclick="displayNumber('.')">.</button>
           <button class="equal" onclick="calculate()">=</button>
         </div>
       </div>
