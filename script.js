@@ -24,143 +24,127 @@
 
 //Make calculator object that contain all arithmetic operation
 
-const numbers = document.querySelectorAll(".number")
-const operators = document.querySelectorAll(".operator")
-const equal = document.querySelector(".equal")
-const clear = document.querySelector(".clear")
-const erase = document.querySelector(".backspace")
-const previousDisplay = document.querySelector(".previous-operand")
+let displayValue = "0";
+let firstNumber = null;
+let secondNumber = null;
+let operation = null
+let result = null
+let step = 0
+let numArray = []
+let secondNumberArray = []
+
 const currentDisplay = document.querySelector(".current-operand")
 
-function addition(firstNumber,operator, secondNumber){
-        let num1 = Number(firstNumber);
-        let num2 = Number(secondNumber);
-        if(Number.isNaN(num1) || Number.isNaN(num2)){
-        console.log(`Addition error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-        return null
-        }
-        return num1 + num2
-}
-function subtraction(firstNumber,operator,secondNumber){
-        let num1 = Number(firstNumber);
-        let num2 = Number(secondNumber);
-        if(Number.isNaN(num1) || Number.isNaN(num2)){
-        console.log(`Subtraction error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-        return null
-        }
-        return num1 - num2
-}
-function multiplication(firstNumber, operator, secondNumber){
-        let num1 = Number(firstNumber);
-        let num2 = Number(secondNumber);
-        if(Number.isNaN(num1) || Number.isNaN(num2)){
-        console.log(`Multiplication error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-        return null
-        }
-        return num1 * num2
-}
-function division(firstNumber,operator, secondNumber) {
-        let num1 = Number(firstNumber);
-        let num2 = Number(secondNumber);
-        if(Number.isNaN(num1) || Number.isNaN(num2)){
-            console.log(`Division error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-            return null
-        }else if(num2 == 0){
-            console.log(`Impossible to divide by 0`)
-            return null
-        }
-        return num1 / num2
-}
-function percentage(firstNumber, operator, secondNumber){
-        let num1 = Number(firstNumber);
-        let num2 = Number(secondNumber);
-        if(Number.isNaN(num1) || Number.isNaN(num2)){
-            console.log(`Division error : \nInvalid data type \nthe first Number is ${typeof(firstNumber)} \nThe second number is ${typeof(secondNumber)} \nboth value should be a number`)
-            return null
-        }else if(num2 == 0){
-            console.log(`Cannot calculate percentage of zero`)
-            return null
-        }
-        return num1 / num2 * 100
+
+function displayNumber(num){
+    
+    if(step === 0 || step === 1 ){
+        numArray.push(num)
+        step = 1
+        firstNumber = Number(numArray.join(''))
+        currentDisplay.textContent = firstNumber
+    }else if(step === 2){
+        secondNumberArray.push(num)
+        secondNumber = Number(secondNumberArray.join(''))
+        currentDisplay.textContent = secondNumber
+    }
+    console.log(num)
 }
 
-function operate(firstNumber,operator,secondNumber){
-    switch(operator) {
-        case "+":
-            let resultAddition = addition(firstNumber, "+", secondNumber)
-            return resultAddition;
-        case "-":
-            let resultSubtraction = subtraction(firstNumber, "-", secondNumber)
-            return resultSubtraction;
-        case "*":
-            let resultMultiplication = multiplication(firstNumber, "*", secondNumber)
-            return resultMultiplication
-        case "/":
-            let resultDivision = division(firstNumber, "/", secondNumber)
-            return resultDivision
-        case "%":
-            let resultPercentage = percentage(firstNumber, "%", secondNumber)
-            return resultPercentage
-        default:
-            return null
+
+function displayOperation(op){
+    if(operation !== null && step === 2){
+        calculate();
+        firstNumber = result;
+        secondNumberArray = [];
+        secondNumber = null;
+        step = 2;
+
+    }
+
+    currentDisplay.textContent += `${op}`
+    step = 2
+    operation = op
+    console.log(op)
+}
+
+
+function clearDisplay(){
+    currentDisplay.textContent = 0
+    firstNumber = null
+    secondNumber = null
+    step = 0
+    operation = null
+    result = 0
+    numArray = []
+    secondNumberArray =[]
+    console.log("clear display")
+}
+
+
+function deleteLastChar() {
+    if (step === 1 && numArray.length > 0) { // For first number
+        numArray.pop(); // Remove the last digit from the array
+        currentDisplay.textContent = numArray.join('') || "0"; // Update display or reset to 0 if empty
+        firstNumber = numArray.length ? Number(numArray.join('')) : null; // Update firstNumber if there's still digits
+    } else if (step === 2 && secondNumberArray.length > 0) { // For second number
+        secondNumberArray.pop(); // Remove the last digit from the array
+        currentDisplay.textContent = currentDisplay.textContent.slice(0, -1); // Remove the last character from the display
+        secondNumber = secondNumberArray.length ? Number(secondNumberArray.join('')) : null; // Update secondNumber
+    } else {
+        clearDisplay(); // Clear if there are no more digits
     }
 }
 
 
-function displayOperation(operation){
 
-}
+function percent(percent){
+    console.log(percent)
+    if(percent === "%"){
+        result = firstNumber/100
+        currentDisplay.textContent = result.toFixed(2);
 
-function displayNumber(){
-
-}
-
-function clearAll(){
-
-}
-
-
-function deletes(){
-
+    }
+    currentDisplay.textContent = result.toFixed(2); // This rounds the result to 2 decimal places.
+;
 }
 
 
+const calculate = () => {
+    if (secondNumber === null || secondNumber === undefined) {
+        currentDisplay.textContent = "Enter a second number";
+        return;
+    }
 
-function updateDisplay(){
-}
-
-
-
-function calculate(){
-    operators.forEach(operatorButton => {
-        operatorButton.addEventListener("click", () => {
-            if(currentDisplay.value !== null){
-                firstNumberStored = parseInt(currentDisplay.value);
-                console.log("Current Display Value:",typeof(currentDisplay.value) );
-
-                operatorStored = operatorButton.value;
-                console.log("First Number:", typeof(firstNumberStored))
-                console.log("Operator: ", typeof(operatorStored))
-            }else{
-                console.log("Error: No number entered before operator")
+    switch (operation) {
+        case '+':
+            result = firstNumber + secondNumber;
+            break;
+        case '-':
+            result = firstNumber - secondNumber;
+            break;
+        case 'x':
+            result = firstNumber * secondNumber;
+            break;
+        case '÷':
+            if (secondNumber === 0) {
+                clearDisplay();
+                currentDisplay.textContent = "Impossible to divide by 0";
+                return;
+            } else {
+                result = firstNumber / secondNumber;
             }
-        })
-    })
+            break;
+        default:
+            return;
+    }
 
-    equal.addEventListener("click", () => {
-        if(currentDisplay.value !== ""){
-            secondNumberStored = parseInt(currentDisplay.value)
-            console.log("Second Number:", typeof(secondNumberStored));
-
-            const result = userInterface.operate(firstNumberStored, operatorStored, secondNumberStored)
-            if(result !== null){
-                currentDisplay.value = result;
-                console.log(currentDisplay.value)
-            }else{
-                console.log("Error: Invalid operation result.")
-            }
-        }else {
-            console.log("Error: No second number entered")
-        }
-    })
-}
+    currentDisplay.textContent = result.toFixed(2); // Round result
+    // Resetting the calculator state
+    firstNumber = result; // Use the result for the next calculation
+    secondNumber = null;
+    numArray = [];
+    secondNumberArray = [];
+    operation = null;
+    step = 0;
+};
