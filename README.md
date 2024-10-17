@@ -40,3 +40,14 @@ Backspace button and lastly keyboard support
 ### When will the project be complete?
 
 The project will be complete once all MVP features have been implemented and the calculator has been styled.
+
+### To come back to ! 
+A memory function to store previous results.
+
+A history of calculations that users can refer to.
+
+Improving UI/UX:
+
+Adding animations or sound effects for button presses.
+
+Providing a history display for past calculations.
