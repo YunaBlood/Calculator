@@ -26,6 +26,7 @@ let secondNumberArray = []
 const currentDisplay = document.querySelector(".current-operand")
 const numberButton = document.querySelector(".number")
 const decimal = document.querySelector(".decimal")
+const equal = document.querySelector(".equal")
 
 function disableDecimalButton(){
     decimal.disabled = true;
@@ -33,23 +34,24 @@ function disableDecimalButton(){
 
 disableDecimalButton()
 
-
 function activeDecimalButton(){
-    decimal.disabled = false;
+
+    decimal.disabled = false
 }
 
 
 function displayNumber(num){
-    
     if(step === 0 || step === 1 ){
+        if(num === '.' && numArray.includes('.')) return; // Prevent multiple decimals
         numArray.push(num)
         step = 1
         firstNumber = Number(numArray.join(''))
-        currentDisplay.textContent = firstNumber
+        currentDisplay.textContent = numArray.join('') 
     }else if(step === 2){
+        if(num === '.' && secondNumberArray.includes('.')) return; // Prevent multiple decimals
         secondNumberArray.push(num)
         secondNumber = Number(secondNumberArray.join(''))
-        currentDisplay.textContent = secondNumber
+        currentDisplay.textContent = `${firstNumber}${operation}${secondNumberArray.join('')}` 
     }
     activeDecimalButton();
 }
@@ -112,10 +114,7 @@ function percent(percent){
 
 
 const calculate = () => {
-    if (secondNumber === null || isNaN(secondNumber)) {
-        currentDisplay.textContent = "Enter a second number";
-        return;
-    }
+
     if (firstNumber === null || isNaN(firstNumber)) {
         currentDisplay.textContent = "Enter a Number";
         return;
@@ -145,15 +144,18 @@ const calculate = () => {
     }
 
     currentDisplay.textContent = result.toFixed(2); // Round result
+    if (secondNumber === null || isNaN(secondNumber)) {
+        secondNumber = firstNumber;
+    }
     // Resetting the calculator state
     firstNumber = result; // Use the result for the next calculation
     secondNumber = null;
     numArray = [];
     secondNumberArray = [];
     operation = null;
-    step = 0;
+    step = 1;
+    disableDecimalButton()
 };
-
 
 
 function handleDecimal() {
