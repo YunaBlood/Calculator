@@ -22,22 +22,36 @@ let result = null
 let step = 0
 let numArray = []
 let secondNumberArray = []
+let hasEnteredDigit = false
 
 const currentDisplay = document.querySelector(".current-operand")
 const numberButton = document.querySelector(".number")
 const decimal = document.querySelector(".decimal")
 const equal = document.querySelector(".equal")
+const operatorButton = document.querySelectorAll('.operator')
 
 function disableDecimalButton(){
     decimal.disabled = true;
 }
 
+function disabledOperatorButton(){
+    operatorButton.forEach((button) => (button.disabled = true))
+}
+
 disableDecimalButton()
+disabledOperatorButton()
 
 function activeDecimalButton(){
 
     decimal.disabled = false
 }
+
+function activeOperatorButton(){
+    operatorButton.forEach((button) => (button.disabled = false))
+}
+
+
+// HandleInfinity()
 
 
 function displayNumber(num){
@@ -46,7 +60,8 @@ function displayNumber(num){
         numArray.push(num)
         step = 1
         firstNumber = Number(numArray.join(''))
-        currentDisplay.textContent = numArray.join('') 
+        currentDisplay.textContent = numArray.join('')
+        hasEnteredDigit = true
     }else if(step === 2){
         if(num === '.' && secondNumberArray.includes('.')) return; // Prevent multiple decimals
         secondNumberArray.push(num)
@@ -54,23 +69,25 @@ function displayNumber(num){
         currentDisplay.textContent = `${firstNumber}${operation}${secondNumberArray.join('')}` 
     }
     activeDecimalButton();
+    activeOperatorButton();
 }
 
-
-function displayOperation(op){
-    if(operation !== null && step === 2){
-        calculate();
-        firstNumber = result;
-        secondNumberArray = [];
-        secondNumber = null;
-        step = 2;
-
+function displayOperation(op) {
+    // Calculate if there’s already an operation and step is 2
+    if (operation !== null && step === 2) {
+        calculate(); 
+        firstNumber = result; // Use result as the first number for the next calculation
+        secondNumberArray = []; // Reset second number
+        secondNumber = null; // Reset second number variable
     }
 
-    currentDisplay.textContent += `${op}`
-    step = 2
-    operation = op
+    // Display the operation and set the step
+    operation = op;
+    currentDisplay.textContent += ` ${op} `; // Add spaces for better visibility
+    step = 2; // Move to operator step
+    hasEnteredDigit = false; // Reset after entering an operator
 }
+
 
 
 function clearDisplay(){
@@ -83,6 +100,7 @@ function clearDisplay(){
     numArray = []
     secondNumberArray =[]
     disableDecimalButton()
+    disabledOperatorButton()
 }
 
 
@@ -131,7 +149,8 @@ const calculate = () => {
             result = firstNumber * secondNumber;
             break;
         case '/':
-            if (secondNumber === 0) {
+            if (secondNumber === 0 || secondNumber === null || secondNumber === undefined) {
+                console.log(secondNumber)
                 clearDisplay();
                 currentDisplay.textContent = "Impossible to divide by 0";
                 return;
@@ -170,38 +189,38 @@ function handleDecimal() {
     }
 }
 
-function keyboardSupport(key){
-    document.addEventListener('keydown', (event) => {
-        const key = event.key;
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
 
-        //Handle number keys
-        if(key >= 0 && key <= 9){
-            displayNumber(key);
-        }
-        //Handle operator keys
-        if(key === "+" || key === "-" || key === "*" || key === "/"){
+    // Handle number keys
+    if (key >= '0' && key <= '9') {
+        displayNumber(key);
+    }
+
+    // Handle operator keys
+    if (['+', '-', '*', '/'].includes(key)) {
+        if (hasEnteredDigit) {
             displayOperation(key);
         }
-        //Handle enter key
-        if(key === "Enter"){
-            calculate();
+    }
+
+    // Handle enter key
+    if (key === 'Enter') {
+        calculate();
+    }
+
+    // Handle clear key
+    if (key.toLowerCase() === 'c') {
+        clearDisplay();
+    }
+
+    // Handle decimal point
+    if (key === '.') {
+        if (!displayValue.includes('.')) {
+            displayNumber('.');
         }
-        //Handle backspace key
-        if(key === "Backspace"){
-            deleteLastChar();
-        }
-        //Handle clear key
-        if(key.toLowerCase() === "c"){
-            clearDisplay();
-        }
-        //Handle percent key
-        if(key === "%"){
-            percent();
-        }
-        if(key === "."){
-            handleDecimal();
-        }
-    });
-}
+    }
+});
+
 
 keyboardSupport();
