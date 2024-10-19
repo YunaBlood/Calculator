@@ -51,9 +51,6 @@ function activeOperatorButton(){
 }
 
 
-// HandleInfinity()
-
-
 function displayNumber(num){
     if(step === 0 || step === 1 ){
         if(num === '.' && numArray.includes('.')) return; // Prevent multiple decimals
@@ -63,7 +60,7 @@ function displayNumber(num){
         currentDisplay.textContent = numArray.join('')
         hasEnteredDigit = true
     }else if(step === 2){
-        if(num === '.' && secondNumberArray.includes('.')) return; // Prevent multiple decimals
+        if(num === '.' && secondNumberArray.includes('.')) return;
         secondNumberArray.push(num)
         secondNumber = Number(secondNumberArray.join(''))
         currentDisplay.textContent = `${firstNumber}${operation}${secondNumberArray.join('')}` 
@@ -73,19 +70,17 @@ function displayNumber(num){
 }
 
 function displayOperation(op) {
-    // Calculate if there’s already an operation and step is 2
     if (operation !== null && step === 2) {
         calculate(); 
-        firstNumber = result; // Use result as the first number for the next calculation
-        secondNumberArray = []; // Reset second number
-        secondNumber = null; // Reset second number variable
+        firstNumber = result;
+        secondNumberArray = [];
+        secondNumber = null;
     }
 
-    // Display the operation and set the step
     operation = op;
-    currentDisplay.textContent += ` ${op} `; // Add spaces for better visibility
-    step = 2; // Move to operator step
-    hasEnteredDigit = false; // Reset after entering an operator
+    currentDisplay.textContent += ` ${op} `; 
+    step = 2; //
+    hasEnteredDigit = false;
 }
 
 
@@ -162,10 +157,11 @@ const calculate = () => {
             return;
     }
 
-    currentDisplay.textContent = result.toFixed(2); // Round result
+    currentDisplay.textContent = result.toFixed(2);
     if (secondNumber === null || isNaN(secondNumber)) {
         secondNumber = firstNumber;
     }
+
     // Resetting the calculator state
     firstNumber = result; // Use the result for the next calculation
     secondNumber = null;
@@ -178,43 +174,41 @@ const calculate = () => {
 
 
 function handleDecimal() {
-    if (step === 1 && !numArray.includes('.')) { // Check for first number
+    if (step === 1 && !numArray.includes('.')) { 
         numArray.push('.');
-        currentDisplay.textContent = numArray.join(''); // Update display with decimal
-        disableDecimalButton(); // Disable the decimal button
-    } else if (step === 2 && !secondNumberArray.includes('.')) { // Check for second number
+        currentDisplay.textContent = numArray.join('');
+        disableDecimalButton();
+    } else if (step === 2 && !secondNumberArray.includes('.')) {
         secondNumberArray.push('.');
-        currentDisplay.textContent = currentDisplay.textContent + '.'; // Append decimal
-        disableDecimalButton(); // Disable the decimal button
+        currentDisplay.textContent = currentDisplay.textContent + '.';
+        disableDecimalButton();
     }
 }
 
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
-    // Handle number keys
     if (key >= '0' && key <= '9') {
         displayNumber(key);
     }
 
-    // Handle operator keys
     if (['+', '-', '*', '/'].includes(key)) {
-        if (hasEnteredDigit) {
-            displayOperation(key);
-        }
+        displayOperation(key);
     }
 
-    // Handle enter key
+
     if (key === 'Enter') {
         calculate();
     }
 
-    // Handle clear key
+    if(key === 'Backspace'){
+        deleteLastChar();
+    }
+
     if (key.toLowerCase() === 'c') {
         clearDisplay();
     }
 
-    // Handle decimal point
     if (key === '.') {
         if (!displayValue.includes('.')) {
             displayNumber('.');
@@ -223,4 +217,4 @@ document.addEventListener('keydown', (event) => {
 });
 
 
-keyboardSupport();
+// keyboardSupport();
