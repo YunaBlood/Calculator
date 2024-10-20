@@ -117,12 +117,10 @@ function deleteLastChar() {
 
 function percent(percent){
     if(percent === "%"){
-        result = firstNumber/100
-        currentDisplay.textContent = result.toFixed(2);
-
+        result = (firstNumber/100);
+        currentDisplay.textContent = result;
     }
-    currentDisplay.textContent = result.toFixed(2); // This rounds the result to 2 decimal places.
-;
+    firstNumber = result;
 }
 
 
@@ -141,7 +139,12 @@ const calculate = () => {
             result = firstNumber - secondNumber;
             break;
         case '*':
-            result = firstNumber * secondNumber;
+            if(secondNumber === null){
+                result = secondNumber
+            }else
+            {
+                result = firstNumber * secondNumber;
+            }
             break;
         case '/':
             if (secondNumber === 0 || secondNumber === null || secondNumber === undefined) {
@@ -215,6 +218,3 @@ document.addEventListener('keydown', (event) => {
         }
     }
 });
-
-
-// keyboardSupport();
